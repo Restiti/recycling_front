@@ -1,7 +1,10 @@
-interface IdMember {
-    timestamp: number;
-    date: string;
+
+// Create class Id Member
+export class IdMember {
+    timestamp!: number;
+    date!: string;
   }
+
   
   interface Address {
     no: number;

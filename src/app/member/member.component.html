@@ -19,11 +19,11 @@
          name="key" id="searchName" class="form-control mr-sm-2" placeholder="Search members..." required>
      </form>
   </div>
-</nav><div class="container" id="main-container">
+</nav>
+<div class="container" id="main-container">
   <div class="row">
-    <ul>
-      <li *ngFor="let member of members">
-         <div class="card m-b-30">
+   <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let member of members">
+      <div class="card m-b-30">
         <div class="card-body row">
            <div class="col-6 card-title align-self-center mb-0">
               <h6>{{member.firstName}} {{member.lastName}}</h6>
@@ -31,7 +31,8 @@
         </div>
         <ul class="list-group list-group-flush">
            <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{member?.mail}}</li>
-           <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{member?.address?.no}} {{member?.address?.street}}, {{member?.address?.city}} {{member?.address?.zip}}</li>
+           <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{member?.no}} {{member?.street}}, {{member?.city}} </li>
+           <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{member?.zip_code}}</li>
         </ul>
         <div class="card-body">
            <div class="float-right btn-group btn-group-sm">
@@ -40,8 +41,7 @@
            </div>
         </div>
      </div>
-      </li>
-    </ul>
+   </div>
   </div>
 </div>
 
@@ -62,7 +62,7 @@
             <input type="text" ngModel name="firstName" class="form-control" id="firstName" placeholder="First name" required>
          </div>
          <div class="form-group">
-             <label for="Last Name">First Name</label>
+             <label for="Last Name">Last Name</label>
              <input type="text" ngModel name="lastName" class="form-control" id="lastName" placeholder="Last Name" required>
           </div>
           <!-- Mail -->
@@ -88,8 +88,8 @@
             </div>
             <!-- Zip -->
             <div class="form-group">
-               <label for="zip">Zip</label>
-               <input type="text" ngModel name="zip" class="form-control" id="zip" placeholder="Zip" required>
+               <label for="zip_code">Zip</label>
+               <input type="text" ngModel name="zip_code" class="form-control" id="zip_code" placeholder="zip_code" required>
             </div>
           <div class="modal-footer">
              <button type="button" id="add-member-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -112,10 +112,10 @@
             </button>
          </div>
          <div class="modal-body">
-            <p>Are you sure you want to delete Member {{deleteMember?.firstName}}{{deleteMember?.lastName}}?</p>
+            <p>Are you sure you want to delete Member {{deleteMember?.firstName}}{{deleteMember?.lastName}} -{{deleteMember?.id}}-?</p>
             <div class="modal-footer">
                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-               <button (click)="onDeleteMember(deleteMember?.idMember)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+               <button (click)="onDeleteMember(deleteMember?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
             </div>
          </div>
       </div>
@@ -135,13 +135,38 @@
          <div class="modal-body">
             <form #editForm="ngForm">
                <div class="form-group">
-                  <label for="name">Name</label>
-                  <input type="text" ngModel="{{editMember?.firstName}}{{editMember?.lastName}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                  <label for="First name">First name</label>
+                  <input type="text" ngModel="{{editMember?.firstName}}" name="firstName" class="form-control" id="Firstname" aria-describedby="emailHelp" placeholder="Name">
                </div>
-               <input type="hidden" ngModel="{{editMember?.idMember}}" name="id" class="form-control" id="id" placeholder="Email">
+               <div class="form-group">
+                  <label for="Last name">Last name</label>
+                  <input type="text" ngModel="{{editMember?.lastName}}" name="lastName" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+               </div>
+               <input type="hidden" ngModel="{{editMember?.id}}" name="id" class="form-control" id="id" placeholder="Email">
                <div class="form-group">
                   <label for="email">Email Address</label>
-                  <input type="email" ngModel="{{editMember?.mail}}" name="email" class="form-control" id="email" placeholder="Email">
+                  <input type="email" ngModel="{{editMember?.mail}}" name="mail" class="form-control" id="email" placeholder="Email">
+               </div>
+               <h3>Adress</h3>
+               <!-- no -->
+               <div class="form-group">
+                  <label for="no">No</label>
+                  <input type="no" ngModel="{{editMember?.no}}" name="no" class="form-control" id="no" placeholder="No">
+               </div>
+               <!-- Street -->
+               <div class="form-group">
+                  <label for="street">Street</label>
+                  <input type="street" ngModel="{{editMember?.street}}" name="street" class="form-control" id="street" placeholder="street">
+               </div>
+               <!-- City -->
+               <div class="form-group">
+                  <label for="city">City</label>
+                  <input type="city" ngModel="{{editMember?.city}}" name="city" class="form-control" id="city" placeholder="city">
+               </div>
+               <!-- Zip -->
+               <div class="form-group">
+                  <label for="zip">Zip</label>
+                  <input type="zip" ngModel="{{editMember?.zip_code}}" name="zip_code" class="form-control" id="zip" placeholder="zip">
                </div>
                <div class="modal-footer">
                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>

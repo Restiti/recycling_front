@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { IdMember, Member } from "./member";
+import {  Member } from "./member";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment";
 
@@ -24,15 +24,19 @@ export class MemberService {
     }
     // Create a member
     createMember(member: Member) {
+        console.log("Creating a member");
+        console.log(member);
         return this.http.post<Member>(`${this.apiServeUrl}/insertMember`, member);
     }
     // Update a member
     updateMember(member: Member) {
-        return this.http.put<Member>(`${this.apiServeUrl}/${member.idMember}`, member);
+        console.log("Updating a member");
+        console.log(member);
+        return this.http.put<Member>(`${this.apiServeUrl}/${member.id}`, member);
     }
-    // Delete a member
-    deleteMember(id?: IdMember) {
-        return this.http.delete<Member>(`${this.apiServeUrl}/${id}`);
+    deleteMember(idMember?: string) {
+        console.log("Deleting a member with ID", idMember);
+        return this.http.delete(`${this.apiServeUrl}/deleteMember/${idMember}`);
     }
     
 }

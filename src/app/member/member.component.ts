@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IdMember, Member } from '../member';
+import {  Member } from '../member';
 import { MemberService } from '../member.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
@@ -15,7 +15,7 @@ export class MemberComponent implements OnInit{
   }
   public members: Member[] = []; // Array of members
   public editMember: Member | undefined;
-  public deleteMember: Member | undefined;
+  public deleteMember!: Member | undefined;
 
     ngOnInit(): void {
     this.getMembers();
@@ -71,7 +71,7 @@ export class MemberComponent implements OnInit{
       if (member.firstName.toLowerCase().indexOf(key.toLowerCase()) !== -1
       || member.lastName.toLowerCase().indexOf(key.toLowerCase()) !== -1
       || member.mail.toLowerCase().indexOf(key.toLowerCase()) !== -1
-      || member.address.city.toLowerCase().indexOf(key.toLowerCase()) !== -1
+      || member.city.toLowerCase().indexOf(key.toLowerCase()) !== -1
       ) {
         results.push(member);
       }
@@ -110,10 +110,9 @@ export class MemberComponent implements OnInit{
     );
   }
 
-  public onDeleteMember(memberID?: IdMember): void {
-    this.memberService.deleteMember(memberID).subscribe(
-      (response: Member) => {
-        console.log(response);
+  public onDeleteMember(id?: string): void {
+    this.memberService.deleteMember(id).subscribe(
+      () => {
         this.getMembers();
       },
       (error: HttpErrorResponse) => {

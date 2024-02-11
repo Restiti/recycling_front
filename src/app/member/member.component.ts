@@ -18,7 +18,7 @@ export class MemberComponent implements OnInit{
   public editMember: Member | undefined;
   public deleteMember!: Member | undefined;
 
-    ngOnInit(): void {
+  ngOnInit(): void {
     this.getMembers();
     console.log(this.members);
   }

@@ -11,7 +11,7 @@ import { tap } from "rxjs/internal/operators/tap";
 })
 export class MemberService {
     // Use environment.ts to store the API URL
-    private apiServeUrl = environment.apiBaseUrl;
+    private apiServeUrl = environment.apiBaseUrl + 'product';
  
     constructor(private http: HttpClient) { }
 
@@ -34,6 +34,8 @@ export class MemberService {
     updateMember(member: Member) {
         console.log("Updating a member");
         console.log(member);
+        // Display id member
+        console.log("Id member" + member.id);
         return this.http.put<Member>(`${this.apiServeUrl}/${member.id}`, member);
     }
     deleteMember(idMember?: string) {
@@ -48,6 +50,18 @@ export class MemberService {
               // localStorage.setItem('userToken', response.token);
             })
           );;
+    }
+    // Register
+    register(member: Member) {
+        console.log("Creating a member");
+        console.log(member);
+        return this.http.post<Member>(`${this.apiServeUrl}/insertMember`, member).pipe(
+            tap(response => {
+                localStorage.setItem('userId', response.id);
+                // Si vous utilisez un token, vous pouvez également le stocker ici
+                // localStorage.setItem('userToken', response.token);
+            })
+        );
     }
 
     // Logout

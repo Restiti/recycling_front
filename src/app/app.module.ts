@@ -7,12 +7,16 @@ import { MemberComponent } from './member/member.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { GroupComponent } from './group/group.component';
+import { MaterialComponent } from './material/material.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MemberComponent,
-    LoginComponent
+    LoginComponent,
+    GroupComponent,
+    MaterialComponent,
   ],
   imports: [
     BrowserModule,
@@ -21,7 +25,7 @@ import { LoginComponent } from './login/login.component';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent, LoginComponent, GroupComponent, MaterialComponent, MemberComponent],
 })
 export class AppModule { }
 

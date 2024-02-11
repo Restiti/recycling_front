@@ -11,5 +11,6 @@
     city: string;
     zip_code: number;
     password: string;
+    role?: string;
   }
   

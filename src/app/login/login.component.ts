@@ -28,7 +28,7 @@ export class LoginComponent {
       no: 0,
       street: "",
       city: "",
-      zip_code: 0
+      zip_code: 0,
     };
     
     this.memberService.login(user).subscribe(
@@ -47,10 +47,11 @@ export class LoginComponent {
     const addMemberForm = document.getElementById('add-member-form');
     if (addMemberForm) {
       addMemberForm.click();
-    }    this.memberService.createMember(addForm.value).subscribe(
+    }    this.memberService.register(addForm.value).subscribe(
       (response: Member) => {
+        console.log("Member created")
         console.log(response);
-        addForm.reset();        
+        //addForm.reset();        
         // Redirection vers /members
         this.router.navigate(['/members']);
       },

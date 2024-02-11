@@ -1,0 +1,181 @@
+<script>
+    $(document).ready(function(){
+      $('#tooltipButton').tooltip();
+    });
+</script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/members"  style="color:white;">Member Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/groups"  style="color:white;">Group Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/materials" style="color:white;">Material Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" style="color:white;">Commande</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" (click)="logout()" style="color:white;">Deconnexion</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" (click)="onOpenModal(undefined, 'add')">Ajout d'un groupe <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container" id="main-container">
+    <div class="row">
+     <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let group of groups">
+        <div class="card m-b-30">
+          <div class="card-body row">
+             <div class="col-6 card-title align-self-center mb-0">
+                <h6>{{group.name}} -- {{group.id}}</h6>
+             </div>
+          </div>
+          <ul class="list-group list-group-flush">
+             <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{group?.managers}}</li>
+             <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{group?.no}} {{group?.street}}, {{group?.city}} </li>
+             <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{group?.zip_code}}</li>
+          </ul>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal(group, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                <a (click)="onOpenModal(group, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+     </div>
+    </div>
+  </div>
+<!-- Add Group Modal -->
+<div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-labelledby="addGroupModalLabel" aria-hidden="true">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+        <h5 class="modal-title" id="addGroupModalLabel">Add Group</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+        <div class="modal-body">
+        <form #addForm="ngForm" (ngSubmit)="onAddGroup(addForm)">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" ngModel name="name" class="form-control" id="name" placeholder="name" required>
+        </div>
+            <h3>Adress</h3>
+            <!-- no -->
+              <div class="form-group">
+                 <label for="no">No</label>
+                 <input type="text" ngModel name="no" class="form-control" id="no" placeholder="No" required>
+              </div>
+              <!-- Street -->
+              <div class="form-group">
+                 <label for="street">Street</label>
+                 <input type="text" ngModel name="street" class="form-control" id="street" placeholder="Street" required>
+              </div>
+              <!-- City -->
+              <div class="form-group">
+                 <label for="city">City</label>
+                 <input type="text" ngModel name="city" class="form-control" id="city" placeholder="City" required>
+              </div>
+              <!-- Zip -->
+              <div class="form-group">
+                 <label for="zip_code">Zip</label>
+                 <input type="text" ngModel name="zip_code" class="form-control" id="zip_code" placeholder="zip_code" required>
+              </div>
+        <div class="modal-footer">
+            <button type="button" id="add-group-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+        </div>
+        </form>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteGroupModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete Group</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete Group {{deleteGroup?.name}} - {{deleteGroup?.id}}-?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteGroup(deleteGroup?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+ <!-- Edit Modal -->
+ <div class="modal fade" id="updateGroupModal" tabindex="-1" role="dialog" aria-labelledby="GroupEditModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="updateGroupModalLabel">Edit Group {{editGroup?.name}}</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <form #editForm="ngForm">
+                <div class="form-group">
+                   <label for="name">name</label>
+                   <input type="text" ngModel="{{editGroup?.name}}" name="name" class="form-control" id="name" aria-describedby="emailHelp" placeholder="Name">
+                </div>
+
+                <h3>Adress</h3>
+                <!-- no -->
+                <div class="form-group">
+                   <label for="no">No</label>
+                   <input type="no" ngModel="{{editGroup?.no}}" name="no" class="form-control" id="no" placeholder="No">
+                </div>
+                <!-- Street -->
+                <div class="form-group">
+                   <label for="street">Street</label>
+                   <input type="street" ngModel="{{editGroup?.street}}" name="street" class="form-control" id="street" placeholder="street">
+                </div>
+                <!-- City -->
+                <div class="form-group">
+                   <label for="city">City</label>
+                   <input type="city" ngModel="{{editGroup?.city}}" name="city" class="form-control" id="city" placeholder="city">
+                </div>
+                <!-- Zip -->
+                <div class="form-group">
+                   <label for="zip">Zip</label>
+                   <input type="zip" ngModel="{{editGroup?.zip_code}}" name="zip_code" class="form-control" id="zip" placeholder="zip">
+                </div>
+                <div class="modal-footer">
+                   <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Close</button>
+                   <button (click)="onUpdateGroup(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Save changes</button>
+                </div>
+                <input type="hidden" [ngModel]="editGroup?.id" name="id">
+             </form>
+          </div>
+       </div>
+    </div>
+  </div>
+  
+<!-- Notification for no Group -->
+<div *ngIf="groups?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">PAS DE GROUPES!</h4>
+      <p>Aucun groupe n'a été trouvé</p>
+    </div> 
+<router-outlet></router-outlet>

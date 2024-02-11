@@ -47,6 +47,8 @@
            <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{member?.zip_code}}</li>
            <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>Password : {{member?.password}}</li>
            <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>Role : {{member?.role}}</li>
+           <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>id : {{member?.id}}</li>
+
         </ul>
         <div class="card-body">
            <div class="float-right btn-group btn-group-sm">
@@ -169,6 +171,11 @@
                <div class="form-group">
                   <label for="password">Password</label>
                   <input type="password" ngModel="{{editMember?.password}}" name="password" class="form-control" id="password" placeholder="Password">
+               </div>
+               <!-- Group code-->
+               <div class="form-group">
+                  <label for="role">groupId</label>
+                  <input type="text" ngModel="{{editMember?.groupId?.id}}" name="groupId" class="form-control" id="groupId" placeholder="groupId">
                </div>
                <h3>Adress</h3>
                <!-- no -->

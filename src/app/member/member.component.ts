@@ -18,10 +18,10 @@ export class MemberComponent implements OnInit{
   public editMember: Member | undefined;
   public deleteMember!: Member | undefined;
 
-  ngOnInit(): void {
+    ngOnInit(): void {
     this.getMembers();
     console.log(this.members);
-  }
+    }
     // Logout
     logout() {
       this.memberService.logout();
@@ -105,7 +105,23 @@ export class MemberComponent implements OnInit{
     );
   }
 
+
   public onUpdateMember(member: Member): void {
+    const memb: any = {
+      "firstName": member.firstName,
+      "lastName": member.lastName,
+      "no": member.no,
+      "street": member.street,
+      "city": member.city,
+      "ZIP_code": member.zip_code,
+      "mail": member.mail,
+      "password": member.password,
+      "role": member.role,
+      "groupID": {
+        "id": member.groupId.id==""?null:member.groupId.id
+      },
+
+    }
     this.memberService.updateMember(member).subscribe(
       (response: Member) => {
         console.log(response);

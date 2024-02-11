@@ -16,11 +16,49 @@ export class GroupComponent implements OnInit{
   public groups: Group[] = []; // Array of groups
   public editGroup: Group | undefined;
   public deleteGroup!: Group | undefined;
+  public idMemberEntry: string = "";
   
   constructor(private groupService: GroupService, private router: Router, private memberService: MemberService) { }
   ngOnInit(): void {
     this.getGroups();
     console.log(this.getGroups());
+  }
+
+  // Méthode pour ajouter une personne via son ID
+  addPerson(idMember: string, idGroup: string) {
+    console.log("Id member: " + idMember);
+    console.log("Id memberEntry: " + this.idMemberEntry);
+
+    console.log("Id group: " + idGroup);
+    this.groupService.addPerson(idMember, idGroup).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.getGroups();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+    this.idMemberEntry = ""; // Réinitialiser l'input
+
+  }
+
+  // Méthode pour supprimer une personne via son ID
+  removePerson(idMember: string, idGroup: string) {
+    console.log("Id member: " + idMember);
+    console.log("Id group: " + idGroup);
+
+    this.groupService.removePerson(idMember, idGroup).subscribe(
+      (response: any) => {
+        console.log(response);
+        this.getGroups();
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+    this.idMemberEntry = ""; // Réinitialiser l'input
+
   }
 
   public onOpenModal(group?: Group, mode?: string): void {

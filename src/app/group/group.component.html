@@ -43,9 +43,21 @@
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{group.id}}</li>
-             <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{group?.managers}}</li>
              <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{group?.no}} {{group?.street}}, {{group?.city}} </li>
              <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{group?.zip_code}}</li>
+             <div>
+               <p>Managers: </p>
+               <ul>
+                 <li *ngFor="let members of group.managers">{{ members.id }}</li>
+               </ul>
+             </div>
+             <div>
+               <input type="string" [(ngModel)]="idMemberEntry" placeholder="Enter ID's Member">
+               <button (click)="addPerson(idMemberEntry, group.id)">Ajouter Personne</button>
+               <button (click)="removePerson(idMemberEntry, group.id)">Supprimer Personne</button>
+             </div>
+             
+
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">

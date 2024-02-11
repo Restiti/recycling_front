@@ -24,7 +24,7 @@ export class LoginComponent {
       id: "",
       firstName: "",
       lastName: "",
-      groupId: "",
+      groupId: { id: "" },
       no: 0,
       street: "",
       city: "",

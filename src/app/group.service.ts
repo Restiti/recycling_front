@@ -37,6 +37,21 @@ export class GroupService {
         console.log("Id groupe" + group.id);
         return this.http.put<Group>(`${this.apiServeUrl}/${group.id}`, group);
     }
+    // Add a member to a Group
+    addPerson(idMember: string, idGroup: string) {
+        console.log("Adding a member to a Group");
+        console.log("Id member: " + idMember);
+        console.log("Id group: " + idGroup);
+        return this.http.put(`${this.apiServeUrl}/addManager/${idGroup}/${idMember}`, null);
+    }
+    // Remove a member from a Group
+    removePerson(idMember: string, idGroup: string) {
+        console.log("Removing a member from a Group");
+        console.log("Id member: " + idMember);
+        console.log("Id group: " + idGroup);
+        return this.http.delete(`${this.apiServeUrl}/removeManager/${idGroup}/${idMember}`);
+    }
+    
     deleteGroup(idGroup?: string) {
         console.log("Deleting a Group with ID", idGroup);
         return this.http.delete(`${this.apiServeUrl}/deleteGroup/${idGroup}`);

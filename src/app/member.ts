@@ -1,6 +1,4 @@
-
-
-  
+// Définition de l'interface Member
   
   export interface Member {
     id: string;
@@ -12,5 +10,6 @@
     street: string;
     city: string;
     zip_code: number;
+    password: string;
   }
   

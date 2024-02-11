@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { MemberComponent } from './member/member.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MemberComponent
+    MemberComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -19,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
+

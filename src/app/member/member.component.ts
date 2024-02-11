@@ -3,6 +3,7 @@ import {  Member } from '../member';
 import { MemberService } from '../member.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-member',
@@ -11,7 +12,7 @@ import { NgForm } from '@angular/forms';
 })
 export class MemberComponent implements OnInit{
   
-  constructor(private memberService: MemberService) { 
+  constructor(private memberService: MemberService, private router: Router) { 
   }
   public members: Member[] = []; // Array of members
   public editMember: Member | undefined;
@@ -21,6 +22,12 @@ export class MemberComponent implements OnInit{
     this.getMembers();
     console.log(this.members);
   }
+    // Logout
+    logout() {
+      this.memberService.logout();
+      // Redirection vers /login
+      this.router.navigate(['/login']);
+    }
 
   public getMembers(): void {
     this.memberService.getMembers().subscribe(

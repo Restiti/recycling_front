@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import {  Member } from "./member";
 import { HttpClient } from "@angular/common/http";
 import { environment } from "../environments/environment";
+import { Observable } from "rxjs/internal/Observable";
+import { tap } from "rxjs/internal/operators/tap";
 
 
 @Injectable({
@@ -38,5 +40,19 @@ export class MemberService {
         console.log("Deleting a member with ID", idMember);
         return this.http.delete(`${this.apiServeUrl}/deleteMember/${idMember}`);
     }
-    
+    login(user: Member): Observable<Member> {
+        return this.http.post<Member>(`${this.apiServeUrl}/login`, user).pipe(
+            tap(response => {
+              localStorage.setItem('userId', response.id);
+              // Si vous utilisez un token, vous pouvez également le stocker ici
+              // localStorage.setItem('userToken', response.token);
+            })
+          );;
+    }
+
+    // Logout
+    logout() {
+        localStorage.removeItem('userId');
+        // localStorage.removeItem('userToken');
+    }
 }

@@ -1,0 +1,89 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" style="color:white;">Member Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" style="color:white;">Group Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" style="color:white;">Material Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" style="color:white;">Commande</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+  </nav>
+<div class="container mt-5">
+    <div class="row">
+      <!-- Formulaire de Connexion -->
+      <div class="col-md-6">
+        <h2>Connexion</h2>
+        <form (submit)="login()">
+          <div class="mb-3">
+            <label for="loginEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="loginEmail" [(ngModel)]="mailLogin" name="mail" required>
+          </div>
+          <div class="mb-3">
+            <label for="loginPassword" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="loginPassword" [(ngModel)]="passwordLogin" name="password" required>
+          </div>
+          <button type="submit" class="btn btn-primary">Se connecter</button>
+        </form>
+      </div>
+  
+      <!-- Formulaire d'Inscription -->
+      <div class="col-md-6">
+        <h2>Inscription</h2>
+        <form #addForm="ngForm"  (submit)="register(addForm)">
+            <div class="form-group">
+                <label for="name">First Name</label>
+                <input type="text" ngModel name="firstName" class="form-control" id="firstName" placeholder="First name" required>
+             </div>
+             <div class="form-group">
+                 <label for="Last Name">Last Name</label>
+                 <input type="text" ngModel name="lastName" class="form-control" id="lastName" placeholder="Last Name" required>
+              </div>
+              <!-- Mail -->
+                <div class="form-group">
+                   <label for="mail">Mail</label>
+                   <input type="email" ngModel name="mail" class="form-control" id="mail" placeholder="Mail" required>
+                </div>
+                <!-- Password-->
+                <div class="form-group">
+                   <label for="password">Password</label>
+                   <input type="password" ngModel name="password" class="form-control" id="password" placeholder="Password" required>
+                </div>
+              <h3>Adress</h3>
+              <!-- no -->
+                <div class="form-group">
+                   <label for="no">No</label>
+                   <input type="text" ngModel name="no" class="form-control" id="no" placeholder="No" required>
+                </div>
+                <!-- Street -->
+                <div class="form-group">
+                   <label for="street">Street</label>
+                   <input type="text" ngModel name="street" class="form-control" id="street" placeholder="Street" required>
+                </div>
+                <!-- City -->
+                <div class="form-group">
+                   <label for="city">City</label>
+                   <input type="text" ngModel name="city" class="form-control" id="city" placeholder="City" required>
+                </div>
+                <!-- Zip -->
+                <div class="form-group">
+                   <label for="zip_code">Zip</label>
+                   <input type="text" ngModel name="zip_code" class="form-control" id="zip_code" placeholder="zip_code" required>
+                </div>
+              <div class="modal-footer">
+                 <button type="button" id="add-member-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                 <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+              </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+<router-outlet></router-outlet>

@@ -21,7 +21,7 @@ export class HistoCommandeComponent {
    }
   dataSource: any;
   commandes: Commande[] = [];
-  displayedColumns: string[] = ['id', 'date', 'membreClient', 'membreActif', 'prixTotal', 'action'];
+  displayedColumns: string[] = ['id', 'date', 'membreClient', 'membreActif', 'prixTotal'];
   @ViewChild(MatPaginator) paginatior !: MatPaginator;
   @ViewChild(MatSort) sort !: MatSort;
   // Logout

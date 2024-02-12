@@ -9,6 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
 import { GroupComponent } from './group/group.component';
 import { MaterialComponent } from './material/material.component';
+import { CommandeComponent } from './commande/commande.component';
+import { HistoCommandeComponent } from './histo-commande/histo-commande.component';
+import { MaterialModule } from './material-module';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -17,15 +21,21 @@ import { MaterialComponent } from './material/material.component';
     LoginComponent,
     GroupComponent,
     MaterialComponent,
+    CommandeComponent,
+    HistoCommandeComponent,
+    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    MaterialModule
   ],
-  providers: [],
-  bootstrap: [AppComponent, LoginComponent, GroupComponent, MaterialComponent, MemberComponent],
+  providers: [
+    provideAnimationsAsync()
+  ],
+  bootstrap: [AppComponent, LoginComponent, GroupComponent, MaterialComponent, MemberComponent, CommandeComponent],
 })
 export class AppModule { }
 

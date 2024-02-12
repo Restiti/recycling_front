@@ -1,0 +1,123 @@
+<script>
+    $(document).ready(function(){
+      $('#tooltipButton').tooltip();
+    });
+</script>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" routerLink="/members"  style="color:white;">Member Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/groups"  style="color:white;">Group Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/materials" style="color:white;">Material Manager</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" routerLink="/commande" style="color:white;">Commande</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <a class="navbar-brand" (click)="logout()" style="color:white;">Deconnexion</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" (click)="onOpenModal(undefined, 'add')">Ajout d'une commande <span class="sr-only">(current)</span></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container" id="main-container">
+    <div class="row">
+     <div class="col-sm-12 col-md-6 col-lg-4 mb-4" *ngFor="let commande of commandes">
+        <div class="card m-b-30">
+          <div class="card-body row">
+             <div class="col-6 card-title align-self-center mb-0">
+                <h6>{{commande.membreActif.id}} -- {{commande.membreClient.id}}</h6>
+             </div>
+          </div>
+          <ul class="list-group list-group-flush">
+             <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{commande?.date}}</li>
+             <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{commande?.id}} </li>
+             <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{commande?.prixTotal}}</li>
+          </ul>
+          <div>
+            <p>Materials: </p>
+            <ul>
+              <li *ngFor="let material of commande.listeMateriel">{{ material.id }}</li>
+            </ul>
+          </div>
+          <div>
+            <input type="text" [ngModel]="materialEntries[commande.id]" (ngModelChange)="materialEntries[commande.id] = $event" placeholder="Enter ID's material">
+            <button (click)="addMaterial(commande.id, materialEntries[commande.id])">Ajouter Materiel</button>
+            <button (click)="removeMaterial(commande.id, materialEntries[commande.id])">Supprimer Materiel</button>        
+          </div>
+          <div class="card-body">
+             <div class="float-right btn-group btn-group-sm">
+                <a (click)="onOpenModal(commande, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+             </div>
+          </div>
+       </div>
+     </div>
+    </div>
+  </div>
+<!-- Add Commande Modal -->
+<div class="modal fade" id="addCommandeModal" tabindex="-1" role="dialog" aria-labelledby="addCommandeModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title" id="addCommandeModalLabel">Add Commande</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="onAddCommande(addForm)">
+                <!-- membre actif -->
+            <div class="form-group">
+                <label for="membreActif">Membre actif</label>
+                <input type="text" ngModel name="membreActif" class="form-control" id="membreActif" placeholder="membreActif" required>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="add-commande-form" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Save changes</button>
+            </div>
+            </form>
+            </div>
+        </div>
+    </div>
+    </div>
+
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteCommandeModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+       <div class="modal-content">
+          <div class="modal-header">
+             <h5 class="modal-title" id="deleteModelLabel">Delete Commande</h5>
+             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+             <span aria-hidden="true">&times;</span>
+             </button>
+          </div>
+          <div class="modal-body">
+             <p>Are you sure you want to delete Commande {{deleteCommande?.id}}?</p>
+             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button (click)="onDeleteCommande(deleteCommande?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+             </div>
+          </div>
+       </div>
+    </div>
+  </div>
+
+<!-- Notification for no commandes -->
+<div *ngIf="commandes?.length == 0" class="col-lg-12 col-md-12 col-xl-12">
+    <div class="alert alert-info" role="alert">
+      <h4 class="alert-heading">PAS DE COMMANDES!</h4>
+      <p>Aucune commande n'a été trouvé</p>
+    </div> 
+<router-outlet></router-outlet>

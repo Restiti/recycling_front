@@ -16,7 +16,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" style="color:white;">Commande</a>
+    <a class="navbar-brand" routerLink="/commandes" style="color:white;">Commande</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -52,9 +52,9 @@
                </ul>
              </div>
              <div>
-               <input type="string" [(ngModel)]="idMemberEntry" placeholder="Enter ID's Member">
-               <button (click)="addPerson(idMemberEntry, group.id)">Ajouter Personne</button>
-               <button (click)="removePerson(idMemberEntry, group.id)">Supprimer Personne</button>
+               <input type="text" [(ngModel)]="memberEntries[group.id]" placeholder="Enter ID's Member">
+               <button (click)="addPerson(memberEntries[group.id], group.id)">Ajouter Personne</button>
+               <button (click)="removePerson(memberEntries[group.id], group.id)">Supprimer Personne</button>           
              </div>
              
 

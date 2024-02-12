@@ -51,6 +51,12 @@ export class MemberService {
             })
           );;
     }
+    // Get Id connected(string) user return null if not connected
+    getUserId(): string | null {
+        return localStorage.getItem('userId');
+    }
+        
+
     // Register
     register(member: Member) {
         console.log("Creating a member");

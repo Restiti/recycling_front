@@ -16,7 +16,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" style="color:white;">Commande</a>
+    <a class="navbar-brand" routerLink="/commandes" style="color:white;">Commande</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
@@ -45,6 +45,8 @@
              <li class="list-group-item"><i class="fa fa-envelope float-right"></i>{{material?.materialType}}</li>
              <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{material?.prix}} </li>
              <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{material?.stockage?.id}}</li>
+             <li class="list-group-item"><i class="fa fa-map-marker float-right"></i>{{material?.id}} </li>
+
           </ul>
           <div class="card-body">
              <div class="float-right btn-group btn-group-sm">

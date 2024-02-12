@@ -108,6 +108,7 @@ export class MemberComponent implements OnInit{
 
   public onUpdateMember(member: Member): void {
     const memb: any = {
+      "id": member.id,
       "firstName": member.firstName,
       "lastName": member.lastName,
       "no": member.no,
@@ -116,13 +117,13 @@ export class MemberComponent implements OnInit{
       "ZIP_code": member.zip_code,
       "mail": member.mail,
       "password": member.password,
-      "role": member.role,
+      "role": member.role==""?null:member.role,
       "groupID": {
         "id": member.groupId.id==""?null:member.groupId.id
       },
 
     }
-    this.memberService.updateMember(member).subscribe(
+    this.memberService.updateMember(memb).subscribe(
       (response: Member) => {
         console.log(response);
         this.getMembers();
